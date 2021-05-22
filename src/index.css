@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 
+:root {
+	/* Base font size */
+	font-size: 10px;
+
+	/* Heading height variable*/
+	--heading-height: 20em;
+}
+
+html {
+  background: linear-gradient(180deg, #C0F4F9 0%, rgba(255, 255, 255, 0) 100%), #E1E1E1;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -10,6 +22,14 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+main {
+	padding: calc(var(--heading-height) + 1.5vw) 4em 0;
+}
+
+.leaflet-container {
+  width:100%;
+  height:100%;
+}
 .container {
   max-width: 500px;
   margin: 30px auto;
@@ -20,22 +40,132 @@ body {
   border-radius: 5px;
 }
 
-.header {
+.chat_container {
+  height:50%;
+  width:50%;
+  max-width:650px;
+  margin: 30px auto;
+  max-height: 600px;
+  border: 1px solid steelblue;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.map_container {
+  height: 600px;
+  width: 800px;
+  margin: 30px auto;
+  border: 1px solid steelblue;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.big_container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  width: 100%;
+  margin: 30px auto;
+  min-height: 300px;
+  border: 1px solid steelblue;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.flights_container {
+  display: flex;
+  width: 100%;
+  min-height: auto;
+  border: 1px solid steelblue;
+  margin-bottom: 15px;
+  padding: 30px;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  align-content: center;
+}
+
+.flights_container form {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  align-content: center;
+}
+
+.header {
+	position: absolute;
+	width: 100%;
+	height: var(--heading-height);
+}
+
+/* Create angled background with 'before' pseudo-element */
+.header::before {
+	content: "";
+	display: block;
+	position: absolute;
+	left: 0;
+	bottom: 6em;
+	width: 100%;
+	height: calc(var(--heading-height) + 10em);
+	z-index: -1;
+	transform: skewY(-3.5deg);
+	background: 
+		linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
+		url(https://images.unsplash.com/photo-1495464101292-552d0b52fe41?auto=format&fit=crop&w=1350&q=80) no-repeat center,
+		linear-gradient(#4e4376, #2b5876);
+	background-size: cover;
+	border-bottom: .2em solid #fff;
+}
+
+.header h1 {
+	font-size: calc(2em + 2vw);
+	font-weight: 700;
+	letter-spacing: .01em;
+	padding: 5rem 0 0 4rem;
+	text-shadow: .022em .022em .022em #111;
+	color: #fff;
+}
+
+
+
+/* .header {
+  position: absolute;
   margin-bottom: 20px;
+} */
+
+#mapid { 
+  height: 180px; 
 }
 
 .chat_log {
-  max-width: 500px;
-  max-height: 300px;
+  width: 100%px;
+  height: 400px;
   margin: 30px;
   min-height: 300px;
   border: 1px solid steelblue;
   padding: 30px;
   border-radius: 5px;
   overflow-y: scroll;
+}
+
+.flights_row {
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  align-content: center;
+}
+
+table, th, td {
+  margin-left: auto;
+  margin-right: auto;
+  align-self: center;
+  border: 1px solid steelblue;
+  border-radius: 5px;
 }
 
 .btn {

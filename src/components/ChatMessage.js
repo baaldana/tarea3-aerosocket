@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef} from 'react';
-import socket from './Socket';
 import Button from './Button';
+import socket from './Socket'
+
 
 const ChatMessage = () => {
     const [message, setMessage] = useState('');
     const [name, setName] = useState('');
     const [registered, setRegistered] = useState(false);
+
+    
 
     const register = (e) => {
         e.preventDefault();
@@ -17,6 +20,7 @@ const ChatMessage = () => {
     const submit = (e) => {
         e.preventDefault();
         socket.emit('CHAT', {name, message});
+        console.log('envié un mensaje');
         setMessage('');
     }
 
