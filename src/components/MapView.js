@@ -1,5 +1,6 @@
 import React, {useEffect, useState } from 'react'
 import {MapContainer, TileLayer, Marker, Popup, Polyline} from 'react-leaflet';
+import Button from './Button'
 import socket from './Socket'
 import L from 'leaflet';
 
@@ -9,7 +10,9 @@ const MapView = () => {
     const [position, setPosition] = useState({}); // Posicion de un vuelo
     const [trajectory, setTrajectory] = useState({});
     const [flights, setFlights] = useState([]); // Almaceno lo que entrega FLIGHTS, para tener origen y destino de cada uno.
-    const [displayPos, setDisplayPos] = useState(false)
+    const [activateMap, setActivateMap] = useState(false);
+    const [displayPos, setDisplayPos] = useState(false);
+    const [displayTrajectory, setDisplayTrajectory] = useState(false);
     
     const colorOptions = [
         {color: 'black'},
@@ -30,9 +33,9 @@ const MapView = () => {
             console.log('Recibiendo FLIGHTS en MapView')
             setFlights(data)
         })
-        //return () => {socket.off()}
         return () => {}
     }, [])
+
 
     useEffect(() => {
         socket.on('POSITION', (data) => {
@@ -40,29 +43,60 @@ const MapView = () => {
             const newPosition = {};
             newPosition[data.code] = data.position
             setPosition(position => {return {...position, ...newPosition}; })
-            const newTrajectory = {};
-            if (data.code in trajectory){
-                newTrajectory[data.code] = [...trajectory[data.code], data.position];
-                console.log(newTrajectory)
-            }
-            else {
-                newTrajectory[data.code] = [data.position];
-            }
-            setTrajectory(trajectory => {return {...trajectory, ...newTrajectory}})
-            // console.log(trajectory)
             setDisplayPos(true);
          })
          return () => {}
     }, [])
 
-    // const plane_icon = L.icon({
-    //     iconUrl: require('../static/icons/carnet.jpg'),
-    //     iconSize:     [20, 20], // size of the icon
-    //     shadowSize:   [50, 64], // size of the shadow
-    // });
+    useEffect( () => {
+        socket.on('POSITION', (data) => {
+            const newTrajectory = {};        
+            setTrajectory( trajectory => {
+                if (trajectory.hasOwnProperty(data.code)) {
+                    if (data.position in [...trajectory[data.code]]){
+                        const current_trajectory = {...trajectory}
+                        current_trajectory[data.code] = undefined;
+                        return current_trajectory;
+                    }
+                    else {
+                        newTrajectory[data.code] = [...trajectory[data.code], data.position];
+                    }
+                    
+                }
+                else {
+                    newTrajectory[data.code] = [data.position];
+                }
+                return {...trajectory, ...newTrajectory}
+            })
+            setDisplayTrajectory(true);
+        })
+        return () => {}
+    }, [])
+
+    const mapActivator = (e) => {
+        e.preventDefault();
+        socket.emit('FLIGHTS', {});
+        setActivateMap(true);
+    }
+
+    const plane_icon = L.icon({
+        iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Plane_icon.svg/1200px-Plane_icon.svg.png',
+        iconSize:[20, 20], // size of the icon
+        rotationAngle: 45
+    });
 
     return (
-            <MapContainer center={[-32,-70]} zoom={4} scrollWheelZoom={false}>
+            <div className='map_container'>
+            {
+                !activateMap &&
+                <form onSubmit={mapActivator}>
+                    <Button text='Activar el mapa' />
+                </form>
+            }
+            {
+                activateMap &&
+
+                <MapContainer center={[-32,-70]} zoom={4} scrollWheelZoom={false}>
                 <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png">
                 </TileLayer>
@@ -93,7 +127,7 @@ const MapView = () => {
                     displayPos &&
                     Object.keys(position).map((positon_key, i) => {
                         return (
-                        <Marker position={position[positon_key]}>
+                        <Marker position={position[positon_key]} icon={plane_icon}>
                         <Popup>Vuelo {positon_key}</Popup>
                         </Marker>
                         )}
@@ -109,6 +143,8 @@ const MapView = () => {
                 
                     
             </MapContainer>
+            }
+            </div>
     )
 }
 

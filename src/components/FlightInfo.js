@@ -9,8 +9,8 @@ const FlightInfo = () => {
     
     useEffect(() => {
         socket.on('FLIGHTS', (data) => {
-            console.log('Recibiendo FLIGHTS')
-            setFlights(data)
+            console.log('Recibiendo FLIGHTS');
+            setFlights(data);
         })
         //return () => {socket.off()}
         return () => {}
@@ -36,6 +36,7 @@ const FlightInfo = () => {
                         <th>Destino</th>
                         <th>Modelo</th>
                         <th>Num Asientos</th>
+                        <th>Pasajeros </th>
                     </tr>
                     {flights.map((flight,i) => 
                         <tr key={i}>
@@ -45,6 +46,11 @@ const FlightInfo = () => {
                             <td>{flight.destination}</td>
                             <td>{flight.plane}</td>
                             <td>{flight.seats}</td>
+                            <td>
+                                <ul>{flight.passengers.map((passenger,i) => 
+                                    <li>{passenger.name} - {passenger.age} años.</li>
+                                )}</ul>
+                            </td>
                         </tr>)}
                     
                     </table>

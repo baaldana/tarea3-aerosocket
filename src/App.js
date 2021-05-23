@@ -15,9 +15,9 @@ function App() {
       <Header />
       <main>
         <div className='big_container'>
-          <div className='map_container'>
+          
             <MapView />
-          </div>
+          
           
           <div className='chat_container'>
             <ChatLog />
