@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/tarea3-aerosocket/static/css/main.974bd882.chunk.css",
+    "main.js": "/tarea3-aerosocket/static/js/main.52d4a459.chunk.js",
+    "main.js.map": "/tarea3-aerosocket/static/js/main.52d4a459.chunk.js.map",
+    "runtime-main.js": "/tarea3-aerosocket/static/js/runtime-main.f7c0c767.js",
+    "runtime-main.js.map": "/tarea3-aerosocket/static/js/runtime-main.f7c0c767.js.map",
+    "static/js/2.ed30ae53.chunk.js": "/tarea3-aerosocket/static/js/2.ed30ae53.chunk.js",
+    "static/js/2.ed30ae53.chunk.js.map": "/tarea3-aerosocket/static/js/2.ed30ae53.chunk.js.map",
+    "static/js/3.dff8db34.chunk.js": "/tarea3-aerosocket/static/js/3.dff8db34.chunk.js",
+    "static/js/3.dff8db34.chunk.js.map": "/tarea3-aerosocket/static/js/3.dff8db34.chunk.js.map",
+    "index.html": "/tarea3-aerosocket/index.html",
+    "static/css/main.974bd882.chunk.css.map": "/tarea3-aerosocket/static/css/main.974bd882.chunk.css.map",
+    "static/js/2.ed30ae53.chunk.js.LICENSE.txt": "/tarea3-aerosocket/static/js/2.ed30ae53.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/tarea3-aerosocket/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f7c0c767.js",
+    "static/js/2.ed30ae53.chunk.js",
+    "static/css/main.974bd882.chunk.css",
+    "static/js/main.52d4a459.chunk.js"
+  ]
+}
